@@ -1,0 +1,28 @@
+.bg-color {
+  background-color: #121212 !important;
+}
+
+.btn-custom {
+    background-color: #3b3b3b !important; /* Very light grey background */
+    color: white !important; /* White text */
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px 20px; /* Custom padding */
+    border: none !important; /* No border */
+    outline: none !important; /* Remove any default outline */
+    box-shadow: none !important; /* Remove the blue box-shadow */
+  }
+  
+  .btn-custom:focus,
+  .btn-custom:active {
+    outline: none !important; /* No outline on focus */
+    box-shadow: none !important; /* No box-shadow on focus */
+  }
+  
+  .btn-custom:hover {
+    background-color: #474747 !important; /* Slightly darker grey on hover */
+  }
+  .dark-golden-brown {
+    background-color: #7A5B29; /* Replace with your desired color */
+    color: #FFD700; /* Adjust text color if needed */
+  }
+  

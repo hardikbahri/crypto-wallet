@@ -1,0 +1,12 @@
+{
+    "wallets": [
+        {
+            "name": "wallet1",
+            "mnemonic": "lecture problem cave scan bid way latin visit bind brisk turkey ugly major basket monitor"
+        },
+        {
+            "name": "wallet2",
+            "mnemonic": "rate leader artist enrich horse present gold genuine heavy soap quality pull famous embrace orphan"
+        }
+    ]
+}
