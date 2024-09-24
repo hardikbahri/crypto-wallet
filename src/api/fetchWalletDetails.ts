@@ -1,9 +1,10 @@
+
 import axios from 'axios';
 import { Transaction } from '../interfaces/interfaces';
+import { error } from 'console';
 
 const API_KEY = process.env.REACT_APP_BLOCKCYPHER_API_KEY;
 const BASE_URL = 'https://api.blockcypher.com/v1/btc/test3';
-
 interface WalletDetails {
   address: string;
   balance: number;
@@ -35,13 +36,15 @@ const mockWalletDetails: WalletDetails = {
 
 
 export const getWalletDetails = async (address: string): Promise<WalletDetails> => {
-  if (process.env.NODE_ENV === 'development') {
-    // Return mock data in development mode
-    console.log('Returning mock wallet details for testing.');
-    return mockWalletDetails;
-  }
+  // if (process.env.NODE_ENV === 'development') {
+
+  //   // Return mock data in development mode
+  //   console.log(process.env.NODE_ENV,'Returning mock wallet details for testing.');
+  //   return mockWalletDetails;
+  // }
 
   try {
+    console.log("calling api")
     const response = await axios.get(`${BASE_URL}/addrs/${address}/full?token=${API_KEY}`);
     const { balance, txs } = response.data;
 
@@ -52,8 +55,19 @@ export const getWalletDetails = async (address: string): Promise<WalletDetails> 
     }));
 
     return { address, balance, transactions };
-  } catch (error) {
-    console.error('Error fetching wallet details:', error);
-    throw new Error('Failed to fetch wallet details');
   }
+  catch (err: any) {
+    // Check if it's an Axios error
+    if (axios.isAxiosError(err)) {
+      console.error("API call failed:", err.response?.data || err.message);
+    } else {
+      console.error("Unexpected error:", err);
+    }
+}
+return {
+  address,
+  balance: 0,
+  transactions: [],
+};
+
 };

@@ -20,29 +20,29 @@ const useWalletDetails = (wallets: {name:string,address: string }[]) => {
       try {
         const fetchedDetails = await Promise.all(
           wallets.map(async (wallet) => {
-            // const details = await getWalletDetails(wallet.address);
-            const details= {
-              "address": "tb1qjf5dnshkwzmr0j54z4zg46m3585m30pr2g8up4",
-              "balance": 5564,
-              "transactions": [
-                  {
-                      "amount": 611185,
-                      "total": 3,
-                      "date": "2024-01-05T09:10:58.083Z"
-                  },
-                  {
-                      "amount": 1033128,
-                      "total": 3,
-                      "date": "2024-01-05T09:11:16.056Z"
-                  },
-                  {
-                      "amount": 5496439,
-                      "total": 3,
-                      "date": "2024-01-05T06:41:55.09Z"
-                  }
-              ],
-              "name": "test"
-          }
+            const details = await getWalletDetails(wallet.address);
+          //   const details= {
+          //     "address": "tb1qjf5dnshkwzmr0j54z4zg46m3585m30pr2g8up4",
+          //     "balance": 5564,
+          //     "transactions": [
+          //         {
+          //             "amount": 611185,
+          //             "total": 3,
+          //             "date": "2024-01-05T09:10:58.083Z"
+          //         },
+          //         {
+          //             "amount": 1033128,
+          //             "total": 3,
+          //             "date": "2024-01-05T09:11:16.056Z"
+          //         },
+          //         {
+          //             "amount": 5496439,
+          //             "total": 3,
+          //             "date": "2024-01-05T06:41:55.09Z"
+          //         }
+          //     ],
+          //     "name": "test"
+          // }
             console.log("details is",details)
             return { ...details ,name:wallet.name};
           })
