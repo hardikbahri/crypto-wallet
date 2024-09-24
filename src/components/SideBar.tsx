@@ -1,9 +1,8 @@
 import React from 'react';
 import { Col, Nav, Button } from 'react-bootstrap';
-import useDashboard from '../hooks/useDashboard'; // Import the hook
+import useDashboard from '../hooks/useDashboard'; 
 
 const Sidebar: React.FC = () => {
-  // Destructure the necessary values from the hook
   const { activeSection, handleNavClick } = useDashboard();
 
   return (
@@ -13,8 +12,7 @@ const Sidebar: React.FC = () => {
       style={{ height: '550px', marginTop: '6%', marginBottom: '2%' }}
     >
       <div>
-        {/* Branding */}
-        {/* Navigation */}
+        
         <Nav className="flex-column p-3">
           {/* Wallets Nav Link */}
           <Nav.Link

@@ -3,7 +3,7 @@ import React from 'react';
 import { Modal, Button, Form, Alert } from 'react-bootstrap';
 import useImportWallet from '../hooks/useImportWallet';
 import '../styles/global.css'
-import { ReactComponent as PlusIcon } from '../icons/PlusIcon.svg'; // Adjust the path as needed
+
 
 interface ImportWalletProps {
   onImport: (name: string, address: string) => void;
@@ -33,14 +33,14 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ onImport }) => {
       variant="primary"
       
       onClick={() => {
-        handleImport(); // Call the existing import logic
-        setShowModal(true); // Show the modal
+        handleImport(); 
+        setShowModal(true); 
       }}
     >
   <img 
     src={'/ellipse.svg'} 
     alt='transaction' 
-    style={{ width: '16px', height: '16px', marginRight: '8px' }} // Adjusted size and margin
+    style={{ width: '16px', height: '16px', marginRight: '8px' }} 
   />
       <span style={{ fontSize: '12px' }}>IMPORT WALLET</span>
     </Button>

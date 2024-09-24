@@ -9,9 +9,9 @@ const TransactionsScreen: React.FC<{ wallets: BalanceDetails[] }> = ({ wallets }
   const { walletDetails, loading, error } = useWalletDetails(wallets);
   const [updatedWalletDetails, setUpdatedWalletDetails] = useState<WalletDetails[]>(walletDetails);
 
-  // Handler to update wallet details after syncing
+
   const handleWalletDetailsUpdate = (details: WalletDetails[]) => {
-    setUpdatedWalletDetails(details); // Update state with synced wallet details
+    setUpdatedWalletDetails(details); 
   };
 
   if (loading) {
@@ -50,7 +50,7 @@ const TransactionsScreen: React.FC<{ wallets: BalanceDetails[] }> = ({ wallets }
                       <span className="ms-3">Amount: {transaction.amount}</span>
                       <span className="ms-3">Date: {new Date(transaction.date).toLocaleString()}</span>
                     </div>
-                    {/* Right side: Total transactions */}
+                   
                   </div>
                 </Card.Body>
               </Card>

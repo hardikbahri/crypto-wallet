@@ -5,11 +5,10 @@ const useDashboard = () => {
   const [wallets, setWallets] = useState<Wallet[]>([]);
   const [balanceDetails, setBalanceDetails] = useState<BalanceDetails[]>([]);
   const [historyDetails, setHistoryDetails] = useState<HistoryDetails | null>(null);
-   const [activeSection, setActiveSection] = useState<string>('wallets'); // State to manage the active section
+   const [activeSection, setActiveSection] = useState<string>('wallets'); 
 
-  // Click handler for the "Wallets" link
   const handleNavClick = (section: string) => {
-    setActiveSection(section); // Update the state to set the active section
+    setActiveSection(section); 
   };
 
   const handleImport = (name: string, address: string) => {

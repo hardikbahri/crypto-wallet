@@ -26,7 +26,7 @@ const Dashboard: React.FC = () => {
     <Container fluid className='bg-color' style={{ minHeight: '100vh' }}>
       {/* Sidebar */}
       <div className="text-left">
-        <img src='./logo.svg' alt="Logo" style={{ width: '30px', marginTop: '10px' }} /> {/* Adjust size as needed */}
+        <img src='./logo.svg' alt="Logo" style={{ width: '30px', marginTop: '10px' }} /> 
         <Navbar.Brand className="text-light font-weight-bold">cySync</Navbar.Brand>
         <hr className="my-4" style={{ borderColor: 'rgba(255, 255, 255, 0.5)' }} />
       </div>
@@ -68,12 +68,12 @@ const Dashboard: React.FC = () => {
 
         {/* Main Content */}
         <Col md={10} className="bg-color text-light p-4">
-          {/* Header with Sync Info */}
+       
 
 
 
 
-          {/* Conditionally Render Based on Active Section */}
+         
           {activeSection === 'wallets' && (
             <>
           <div

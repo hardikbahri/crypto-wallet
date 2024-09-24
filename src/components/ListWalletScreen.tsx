@@ -45,7 +45,7 @@ const ListWalletScreen: React.FC<{ wallets: BalanceDetails[] }> = ({ wallets }) 
                       style={{ width: '32px', height: '32px', marginRight: '15px' }}
                       alt="coin"
                     />
-                    <span>{wallet.address}</span> {/* Display address instead of name */}
+                    <span>{wallet.name}</span> {/* Display address instead of name */}
                   </div>
                   <span>{wallet.balance}</span>
                   <Button className="btn btn-link" size="sm">

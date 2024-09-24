@@ -1,4 +1,3 @@
-// src/hooks/useSyncQueue.ts
 import { useEffect, useState } from 'react';
 import { getWalletDetails } from '../api/fetchWalletDetails';
 import { Wallet, SyncItem, WalletDetails, Transaction } from '../interfaces/interfaces';
@@ -38,9 +37,15 @@ const useSyncQueue = (wallets: Wallet[], onWalletDetailsUpdate: (details: Wallet
   };
 
   const processQueue = async () => {
+    if (queue.length === 0) {
+      console.warn('No items in the sync queue.');
+      return; // Early return if the queue is empty
+    }
+
     setSyncStatus('Syncing');
     for (const syncItem of queue) {
       try {
+        console.log('Processing sync item:', syncItem); // Log the sync item
         await syncWalletData(syncItem);
         await new Promise(resolve => setTimeout(resolve, 200)); // 0.2s delay between each item
       } catch (error) {
@@ -54,22 +59,24 @@ const useSyncQueue = (wallets: Wallet[], onWalletDetailsUpdate: (details: Wallet
     const { type, wallet } = syncItem;
     const details = await getWalletDetails(wallet.address);
 
+    // Pass the wallet name to updateWalletDetails
     if (type === 'balance') {
-      updateWalletDetails(wallet.address, details.balance, undefined);
+      updateWalletDetails(wallet.address, details.balance, undefined, wallet.name);
     } else if (type === 'history') {
-      updateWalletDetails(wallet.address, undefined, details.transactions);
+      updateWalletDetails(wallet.address, undefined, details.transactions, wallet.name);
     }
-    setQueue([]);
+    setQueue([]); // Clear the queue after processing
   };
 
   const updateWalletDetails = (
     address: string,
     balance?: number,
-    history?: Transaction[]
+    history?: Transaction[],
+    name?: string // Accept name as a parameter
   ) => {
     setWalletDetails(prevDetails => {
       const existing = prevDetails.find(wallet => wallet.address === address);
-  
+
       if (existing) {
         return prevDetails.map(wallet => {
           if (wallet.address === address) {
@@ -82,17 +89,17 @@ const useSyncQueue = (wallets: Wallet[], onWalletDetailsUpdate: (details: Wallet
           return wallet;
         });
       } else {
-        // Create a new wallet entry ensuring all properties are provided
         const newWalletDetails: WalletDetails = {
           address,
-          name: "Default Name", // You may need to set a proper name based on your data structure
-          balance: balance ?? 0, // Default to 0 if not provided
-          transactions: history ?? [] // Default to an empty array if not provided
+          name: name ?? '', // Use the provided name or an empty string if not available
+          balance: balance ?? 0,
+          transactions: history ?? []
         };
         return [...prevDetails, newWalletDetails];
       }
     });
   };
+
   const handleSyncButtonClick = () => {
     addSyncItemsToQueue(wallets); // Add all wallets to queue
   };
