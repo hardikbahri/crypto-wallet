@@ -1,12 +1,13 @@
 // interfaces/interfaces.ts
 
 export interface Transaction {
-  hash: string;
-  block_height: number;
-  total: number;
+  amount:number,//transac amt
+      
+      total: number,//no of transactions
+      date:string//date recvd 
 }
-
 export interface BalanceDetails {
+  name:string;
   address: string;
   balance: number;
 }
@@ -16,7 +17,12 @@ export interface HistoryDetails {
   transactions: Transaction[];
 }
 
-export type WalletDetails = BalanceDetails | HistoryDetails;
+export interface WalletDetails {
+  name: string;
+  address:string;
+  balance: number;
+  transactions: Transaction[];
+}
 
 export interface Wallet {
   name: string;

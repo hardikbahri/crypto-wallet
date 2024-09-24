@@ -16,6 +16,13 @@ const useSyncQueue = (wallets: Wallet[], onWalletDetailsUpdate: (details: Wallet
   }, [queue]);
 
   useEffect(() => {
+    if (wallets.length > 0) {
+      // Automatically trigger sync when wallets change or on mount
+      addSyncItemsToQueue(wallets);
+    }
+  }, [wallets]);
+
+  useEffect(() => {
     if (walletDetails.length > 0 && walletDetails !== walletDetailsState) {
       setWalletDetailsState(walletDetails);
       onWalletDetailsUpdate([...walletDetails]); // Pass a new array to avoid stale updates
@@ -62,30 +69,30 @@ const useSyncQueue = (wallets: Wallet[], onWalletDetailsUpdate: (details: Wallet
   ) => {
     setWalletDetails(prevDetails => {
       const existing = prevDetails.find(wallet => wallet.address === address);
-
+  
       if (existing) {
         return prevDetails.map(wallet => {
           if (wallet.address === address) {
-            if ('balance' in wallet && balance !== undefined) {
-              return { ...wallet, balance }; // Update balance
-            }
-            if ('transactions' in wallet && history !== undefined) {
-              return { ...wallet, transactions: history }; // Update history
-            }
+            return {
+              ...wallet,
+              ...(balance !== undefined && { balance }), // Update balance if provided
+              ...(history !== undefined && { transactions: history }) // Update history if provided
+            };
           }
           return wallet;
         });
       } else {
-        return [
-          ...prevDetails,
-          balance !== undefined
-            ? { address, balance } // Add as BalanceDetails
-            : { address, transactions: history ?? [] } // Add as HistoryDetails
-        ];
+        // Create a new wallet entry ensuring all properties are provided
+        const newWalletDetails: WalletDetails = {
+          address,
+          name: "Default Name", // You may need to set a proper name based on your data structure
+          balance: balance ?? 0, // Default to 0 if not provided
+          transactions: history ?? [] // Default to an empty array if not provided
+        };
+        return [...prevDetails, newWalletDetails];
       }
     });
   };
-
   const handleSyncButtonClick = () => {
     addSyncItemsToQueue(wallets); // Add all wallets to queue
   };

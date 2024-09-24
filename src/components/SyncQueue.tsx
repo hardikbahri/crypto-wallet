@@ -13,10 +13,8 @@ const SyncQueue: React.FC<SyncQueueProps> = ({ wallets, onWalletDetailsUpdate })
   return (
     <div>
       <div>Status: {syncStatus}</div>
-      <button onClick={handleSyncButtonClick}>
-  {syncStatus === 'Syncing' ? 'Syncing...' : 'Sync Wallet Data'}
-
-        Sync
+      <button onClick={handleSyncButtonClick} disabled={syncStatus === 'Syncing'}>
+        Sync Wallet Data
       </button>
     </div>
   );

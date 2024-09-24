@@ -1,13 +1,8 @@
 import axios from 'axios';
-
+import { Transaction} from '../interfaces/interfaces';
 const API_KEY = process.env.REACT_APP_BLOCKCYPHER_API_KEY;
 const BASE_URL = 'https://api.blockcypher.com/v1/btc/test3';
 
-interface Transaction {
-  hash: string;
-  block_height: number;
-  total: number;
-}
 
 interface WalletDetails {
   address: string;
@@ -22,9 +17,10 @@ export const getWalletDetails = async (address: string): Promise<WalletDetails> 
     const { balance, txs } = response.data;
 
     const transactions = txs.map((tx: any) => ({
-      hash: tx.hash,
-      block_height: tx.block_height,
-      total: tx.total,
+      amount:tx.total,//transac amt
+      
+      total: txs.length,//no of transactions
+      date:tx.received//date recvd 
     }));
 
     return { address, balance, transactions };

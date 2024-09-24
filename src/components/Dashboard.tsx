@@ -12,7 +12,7 @@ import { ReactComponent as PlusIcon } from '../icons/PlusIcon.svg'; // Adjust yo
 
 const Dashboard: React.FC = () => {
   const {
-    wallets,
+    wallets,//contain Wallet[] (name,address)
     balanceDetails,
     historyDetails,
     handleImport,
@@ -21,7 +21,7 @@ const Dashboard: React.FC = () => {
     handleBalanceUpdate,
     handleHistoryUpdate,
   } = useDashboard();
-
+  {console.log("bd is",balanceDetails)}
   return (
     <Container fluid className='bg-color' style={{ minHeight: '100vh' }}>
       {/* Sidebar */}
@@ -91,83 +91,36 @@ const Dashboard: React.FC = () => {
                     <th >Actions</th>
                   </tr>
                 </thead>
+                
                 <tbody>
                   {/* Empty table row */}
-                  {balanceDetails.length > 0 ? (
-                    <Card className="bg-secondary text-white mt-4">
-                      <Card.Header>Wallet Balance Details</Card.Header>
-                      <ListWalletScreen wallets={balanceDetails} />
-                    </Card>
-                  ) : (
-                    <Alert variant="info" className="mt-4">Fetching wallet details...</Alert>
-                  )}
+                
 
                 </tbody>
                 </Table>
               {wallets.length > 0 ? (
-                <ListWalletScreen wallets={wallets.map(({ address }) => ({ address, balance: 0 }))} />
+                <ListWalletScreen wallets={wallets.map(({name, address }) => ({ name,address, balance: 0 }))} />
               ) : (
                 <Alert variant="info">No wallets imported yet.</Alert>
               )}
             </>
           )}
-
 
           {activeSection === 'transactions' && (
-            <>
-              <div
-            className="d-flex justify-content-between align-items-center mb-3">
-           <br/>
-            <ImportWallet onImport={handleImport} />
-          </div>
-              <h5 style={{color:'#C48B22'}}>Transactions</h5>
-              <Table striped bordered hover variant="dark">
-                <thead>
-                  <tr>
-                    <th>Coin</th>
-                    <th>Wallet</th>
-                    <th>Amount</th>
-                    <th>Result</th>
-                    <th>Status</th>
-
-                  </tr>
-                </thead>
-                <tbody>
-                  {/* Empty table row */}
-                  {historyDetails ? (
-                    <Card className="bg-secondary text-white mt-4">
-                      <Card.Header>Wallet Balance Details</Card.Header>
-                      <TransactionsScreen walletDetails={historyDetails} />
-                    </Card>
-                  ) : (
-                    <Alert variant="info" className="mt-4">Fetching wallet details...</Alert>
-                  )}
-
-                </tbody>
-              </Table>
-              {wallets.length > 0 ? (
-                <ListWalletScreen wallets={wallets.map(({ address }) => ({ address, balance: 0 }))} />
-              ) : (
-                <Alert variant="info">No wallets imported yet.</Alert>
-              )}
-            </>
-          )}
-
-
-
-          {activeSection === 'transactions' && historyDetails && (
             <>
               <h5>Total Coins - 0</h5>
               <Table striped bordered hover variant="dark">
                 <thead>
                   <tr>
-                    <th>Coin</th>
-                    <th>Holding</th>
-                    <th>Actions</th>
+                  <th>Coin</th>
+                    <th>Wallet</th>
+                    <th>Amount</th>
+                    <th>Result</th>
+                    <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <TransactionsScreen walletDetails={historyDetails} />
+                  <TransactionsScreen wallets={wallets.map(({ name,address }) => ({ name,address, balance: 0 }))} />
                 </tbody>
               </Table>
             </>
